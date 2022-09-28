@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:4000'
+export const BASE_URL = 'https://wanted-5-1.herokuapp.com'
 export const HTTP_METHOD = {
   GET: 'get',
 }
