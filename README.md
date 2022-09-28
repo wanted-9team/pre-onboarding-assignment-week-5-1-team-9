@@ -1,12 +1,12 @@
 # 원티드 프리온보딩 6차 5-1 과제
 
-## 9팀 소개
+## ⛹️ 9팀 소개
 
 | <img src="https://avatars.githubusercontent.com/u/92010078?v=4"/> | <img src="https://avatars.githubusercontent.com/u/92101831?v=4"/> | <img src="https://avatars.githubusercontent.com/u/69101321?v=4"/> | <img src="https://avatars.githubusercontent.com/u/85508157?v=4"/> | <img src="https://avatars.githubusercontent.com/u/97271725?v=4"> |
 | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------- |
 | <a href="https://github.com/many-yun">[팀장] 김다윤</a>           | <a href="https://github.com/blcklamb">김채정</a>                  | <a href="https://github.com/jaehyeon74">박재현</a>                | <a href="https://github.com/sacultang">오영재</a>                 | <a href="https://github.com/jungdeokwoo">정덕우</a>              |
 
-## 목차
+## 📜 목차
 
 - [과제 소개](#과제-소개)
 - [설치 및 실행](#설치-및-실행)
@@ -15,14 +15,19 @@
 - [기술 스택](#기술-스택)
 - [파일 구조](#파일-구조)
 
-## 과제 소개
+## 📬 과제 소개
 
 - 검색창 구현 + 검색어 추천 기능 구현
+- [과제 관련 레포지토리](https://github.com/walking-sunset/assignment-api)
 - 작업기간: 2022.09.27 ~ 2022.09.29
 
 <br>
 
-## 설치 및 실행
+## [🏄‍♀️ 바로 실행하기](https://wanted-5-1.herokuapp.com/)
+
+- 배포 주소: https://wanted-5-1.herokuapp.com/
+
+## 💻 설치 및 실행
 
 <br>
 
@@ -62,13 +67,13 @@
 
 ```
 
-## 데모
+## 🎥 데모
 
 https://user-images.githubusercontent.com/85508157/192806655-a6c06ff7-3254-498e-9a68-76cb9f343388.mov
 
 <br><br>
 
-## 구현 기능에 대한 Best Practices 👍
+## 👍 구현 기능에 대한 Best Practices
 
 ### ☑️ 질환명 검색시 API 호출 통해서 검색어 추천 기능 구현
 
@@ -125,7 +130,7 @@ function useDebounce(value, delay = 800) {
 
 input값을 입력할때 한글의 경우 조합어이기 때문에 한글을 입력하다가 다른키를 누르면 onKeyDown이 두번 작동하게 되는데 이때, onKeyDown 이벤트의 nativeEvent.isComposing(조합어를 작성하는지 여부를 확인)값이 true일때는 그냥 return 시키고, false일때(조합어를 작성하지 않는 경우) 조건에 따라 index 가 변경되도록 하여 키보드를 통해 이동 가능하도록 구현하였습니다.
 
-## 기술 스택
+## 📚 기술 스택
 
 <div>
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=white"/>
@@ -134,7 +139,7 @@ input값을 입력할때 한글의 경우 조합어이기 때문에 한글을 �
 </div>
 <br>
 
-## 파일구조
+## 🗂 폴더 구조
 
 ```bash
 ├─ server
