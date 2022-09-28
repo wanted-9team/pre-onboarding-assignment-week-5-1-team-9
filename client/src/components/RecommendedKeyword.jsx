@@ -4,8 +4,9 @@ import Highlights from './Highlights'
 import NoResults from './NoResults'
 import Spinner from './Spinner'
 import { AiOutlineSearch } from 'react-icons/ai'
+import { css } from 'styled-components'
 
-function RecommendedKeyword({ data, query, isLoading, status }) {
+function RecommendedKeyword({ data, query, isLoading, status, currentIndex }) {
   return (
     <>
       {query && (
@@ -16,7 +17,7 @@ function RecommendedKeyword({ data, query, isLoading, status }) {
               <Spinner />
             ) : (
               data.map((item, index) => (
-                <RecommendedLI key={index}>
+                <RecommendedLI key={index} selected={index === currentIndex}>
                   <AiOutlineSearch />
                   <Highlights query={query} total={item.sickNm} />
                 </RecommendedLI>
@@ -45,6 +46,13 @@ const RecommendedLI = styled.li`
   display: flex;
   align-items: center;
   line-height: 20px;
+  ${({ selected }) => {
+    if (selected) {
+      return css`
+        background-color: rgb(220, 220, 220);
+      `
+    }
+  }}
 `
 
 const RecommendedHeader = styled.div`

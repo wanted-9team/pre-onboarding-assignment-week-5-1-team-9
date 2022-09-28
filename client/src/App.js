@@ -8,14 +8,31 @@ import RecommendedKeyword from 'components/RecommendedKeyword'
 
 const App = () => {
   const [query, setQuery] = useState('')
+  const [currentIndex, setCurrentIndex] = useState(-1)
   const debounceVal = useDebounce(query)
 
   const { data, isLoading, status } = useCache(debounceVal)
+
+  const keyHandler = event => {
+    if (query === '' || event.nativeEvent.isComposing) return
+    if (event.code === 'ArrowDown') {
+      currentIndex >= data.length - 1 ? setCurrentIndex(0) : setCurrentIndex(prev => prev + 1)
+    }
+    if (event.code === 'ArrowUp') {
+      currentIndex <= 0 ? setCurrentIndex(data.length - 1) : setCurrentIndex(prev => prev - 1)
+    }
+  }
   return (
-    <Container>
+    <Container onKeyDown={keyHandler}>
       <Header />
       <Searchbar setQuery={setQuery} />
-      <RecommendedKeyword status={status} isLoading={isLoading} data={data} query={debounceVal} />
+      <RecommendedKeyword
+        status={status}
+        isLoading={isLoading}
+        data={data}
+        query={debounceVal}
+        currentIndex={currentIndex}
+      />
     </Container>
   )
 }
