@@ -12,7 +12,7 @@ function useDebounce(value, delay = 800) {
     }
   }, [value, delay])
 
-  return { debounceVal }
+  return debounceVal
 }
 
 export default useDebounce

@@ -10,7 +10,7 @@ const App = () => {
   const [query, setQuery] = useState('')
   const [currentIndex, setCurrentIndex] = useState(-1)
 
-  const { debounceVal } = useDebounce(query)
+  const debounceVal = useDebounce(query)
   const { data, isLoading, status } = useCache(debounceVal)
 
   useEffect(() => {
