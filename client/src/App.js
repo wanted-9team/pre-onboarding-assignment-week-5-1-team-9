@@ -8,8 +8,9 @@ import RecommendedKeyword from 'components/RecommendedKeyword'
 
 const App = () => {
   const [query, setQuery] = useState('')
+  const [currentIndex, setCurrentIndex] = useState(-1)
 
-  const { debounceVal, setCurrentIndex, currentIndex } = useDebounce(query)
+  const { debounceVal } = useDebounce(query, setCurrentIndex)
   const { data, isLoading, status } = useCache(debounceVal)
 
   const keyHandler = event => {
