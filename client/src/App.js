@@ -21,11 +21,14 @@ const App = () => {
     if (event.code === 'ArrowUp') {
       currentIndex <= 0 ? setCurrentIndex(data.length - 1) : setCurrentIndex(prev => prev - 1)
     }
+    if (event.code === 'Enter' && currentIndex >= 0) {
+      setQuery(data[currentIndex].sickNm)
+    }
   }
   return (
     <Container onKeyDown={keyHandler}>
       <Header />
-      <Searchbar setQuery={setQuery} />
+      <Searchbar setQuery={setQuery} query={query} />
       <RecommendedKeyword
         status={status}
         isLoading={isLoading}
