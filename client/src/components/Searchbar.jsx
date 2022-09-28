@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { AiOutlineSearch } from 'react-icons/ai'
 
 function Searchbar({ setQuery }) {
   const onChangeHandler = event => setQuery(event.target.value)

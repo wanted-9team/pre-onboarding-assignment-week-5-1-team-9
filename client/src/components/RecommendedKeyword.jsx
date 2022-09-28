@@ -7,22 +7,26 @@ import { AiOutlineSearch } from 'react-icons/ai'
 
 function RecommendedKeyword({ data, query, isLoading, status }) {
   return (
-    <RecommendedContainer>
-      <RecommendedHeader>추천 검색어</RecommendedHeader>
-      <RecommendedKeywordUL>
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          data.map((item, index) => (
-            <RecommendedLI key={index}>
-              <AiOutlineSearch />
-              <Highlights query={query} total={item.sickNm} />
-            </RecommendedLI>
-          ))
-        )}
-        {(status === 'NoResults' || status === 'Reset') && <NoResults />}
-      </RecommendedKeywordUL>
-    </RecommendedContainer>
+    <>
+      {query && (
+        <RecommendedContainer>
+          <RecommendedHeader>추천 검색어</RecommendedHeader>
+          <RecommendedKeywordUL>
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              data.map((item, index) => (
+                <RecommendedLI key={index}>
+                  <AiOutlineSearch />
+                  <Highlights query={query} total={item.sickNm} />
+                </RecommendedLI>
+              ))
+            )}
+            {(status === 'NoResults' || status === 'Reset') && <NoResults />}
+          </RecommendedKeywordUL>
+        </RecommendedContainer>
+      )}
+    </>
   )
 }
 
@@ -37,9 +41,10 @@ const RecommendedKeywordUL = styled.ul`
 
 const RecommendedLI = styled.li`
   list-style: none;
-  padding: 10px 0;
+  padding: 10px 5px;
   display: flex;
   align-items: center;
+  line-height: 20px;
 `
 
 const RecommendedHeader = styled.div`
@@ -49,7 +54,7 @@ const RecommendedHeader = styled.div`
 `
 
 const RecommendedContainer = styled.div`
-  width: 80%;
+  width: 75%;
   background-color: white;
   border-radius: 10px;
 `

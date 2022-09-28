@@ -17,4 +17,7 @@ export default Highlights
 
 const HighLightsContainer = styled.div`
   margin-left: 5px;
+  & strong {
+    font-weight: 700;
+  }
 `
