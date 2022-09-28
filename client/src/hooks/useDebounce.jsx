@@ -1,31 +1,34 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { getSearchApi } from 'api'
 
 const useDebounce = delay => {
   const [searchResult, setSearchResult] = useState([])
-  const [search, setSearch] = useState('')
+  const [searchWord, setSearchWord] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const fetchApi = async () => {
+  const fetchSearchApi = useCallback(async () => {
+    setLoading(true)
     try {
-      const response = await getSearchApi()
+      const response = await getSearchApi(searchWord)
       setSearchResult(response)
     } catch (err) {
       throw new Error(err)
+    } finally {
+      setLoading(false)
     }
-  }
+  }, [setSearchResult, searchWord])
 
   useEffect(() => {
-    if (!search) return
+    if (!searchWord) return
     const handler = setTimeout(() => {
-      fetchApi()
+      fetchSearchApi()
     }, delay)
-
     return () => {
       clearTimeout(handler)
     }
-  }, [delay, search])
+  }, [delay, searchWord, fetchSearchApi])
 
-  return { searchResult, search, setSearch }
+  return { searchResult, searchWord, setSearchWord, loading }
 }
 
 export default useDebounce

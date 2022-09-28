@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import styled from 'styled-components'
 
-const SearchInput = ({ setSearchWord }) => {
+const SearchInput = ({ setSearchWord, handleKeyArrow }) => {
   const handleSearchInput = useCallback(
     ({ target }) => {
       setSearchWord(target.value)
@@ -10,7 +10,7 @@ const SearchInput = ({ setSearchWord }) => {
   )
 
   return (
-    <InputWrapper>
+    <InputWrapper onKeyUp={handleKeyArrow}>
       <SearchInputField onChange={handleSearchInput} />
       <SearchButton>검색</SearchButton>
     </InputWrapper>

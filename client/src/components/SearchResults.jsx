@@ -1,27 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
+import { highlightText } from 'utils/highligtText'
 
-const highlightText = (text, query) => {
-  if (query !== '' && text.includes(query)) {
-    const parts = text.split(new RegExp(`(${query})`, 'gi'))
-
-    return (
-      <>
-        {parts.map((part, idx) =>
-          part.toLowerCase() === query.toLowerCase() ? <BoldText key={idx}>{part}</BoldText> : part,
-        )}
-      </>
-    )
-  }
-  return text
-}
-
-const SearchResults = ({ searchResult, searchWord, loading }) => {
+const SearchResults = ({ searchResult, searchWord, listIndex, liRef }) => {
   return (
-    <ResultUl>
-      {searchResult.map(data => (
-        <ResultLi key={data.sickCd}>{highlightText(data.sickNm, searchWord)}</ResultLi>
-      ))}
+    <ResultUl ref={liRef}>
+      {searchWord && (
+        <>
+          {searchResult.length > 0 ? (
+            searchResult.map((data, idx) => (
+              <ResultLi key={data.sickCd} isFocus={listIndex === idx + 1}>
+                {highlightText(data.sickNm, searchWord)}
+              </ResultLi>
+            ))
+          ) : (
+            <ResultLi>검색 결과가 없습니다.</ResultLi>
+          )}
+        </>
+      )}
     </ResultUl>
   )
 }
@@ -31,12 +27,12 @@ export default SearchResults
 const ResultUl = styled.ul`
   width: 100%;
   list-style: none;
+  padding: 10px 0;
+  margin: 0;
 `
 
 const ResultLi = styled.li`
   font-size: 1.2rem;
-`
-
-const BoldText = styled.span`
-  font-weight: bold;
+  padding: 5px 0;
+  background-color: ${({ isFocus }) => (isFocus ? '#c2d2ff' : 'none')};
 `

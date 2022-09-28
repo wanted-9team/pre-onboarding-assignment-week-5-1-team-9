@@ -3,14 +3,22 @@ import SearchResults from 'components/SearchResults'
 import SearchInput from 'components/SearchInput'
 import useDebounce from 'hooks/useDebounce'
 import styled from 'styled-components'
+import useKeydown from 'hooks/useKeydown'
 
 const Home = () => {
-  const { searchResult, search, setSearch } = useDebounce(500)
+  const { searchResult, searchWord, setSearchWord, loading } = useDebounce(500)
+  const { listIndex, liRef, handleKeyArrow } = useKeydown(searchResult)
 
   return (
     <Container>
-      <SearchInput setSearch={setSearch} />
-      <SearchResults searchResult={searchResult} search={search} />
+      <SearchInput setSearchWord={setSearchWord} handleKeyArrow={handleKeyArrow} />
+      <SearchResults
+        searchResult={searchResult}
+        searchWord={searchWord}
+        loading={loading}
+        listIndex={listIndex}
+        liRef={liRef}
+      />
     </Container>
   )
 }
@@ -18,7 +26,7 @@ const Home = () => {
 export default Home
 
 const Container = styled.div`
-  width: 1000px;
+  width: 600px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
