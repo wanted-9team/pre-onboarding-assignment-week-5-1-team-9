@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 function Searchbar({ setQuery, query }) {
   const onChangeHandler = event => setQuery(event.target.value)
+
   return (
     <SearchBarContainer>
       <SearchInput
