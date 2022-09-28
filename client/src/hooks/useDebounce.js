@@ -16,7 +16,7 @@ function useDebounce(value, setCurrentIndex, delay = 800) {
     return () => {
       clearTimeout(handler)
     }
-  }, [value])
+  }, [value, delay, setCurrentIndex])
 
   return { debounceVal }
 }
