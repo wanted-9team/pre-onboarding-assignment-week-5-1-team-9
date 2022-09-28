@@ -18,7 +18,7 @@ export const useCache = query => {
       case 'NORESULTS':
         return { ...initialState, status: 'NoResults', data: [], isLoading: false }
       case 'RENDERING':
-        return { ...initialState, status: 'Rendering', isLoading: true }
+        return { ...initialState, status: 'Rendering', data: [], isLoading: true }
       case 'RENDERED':
         return { ...initialState, status: 'Rendered', data: action.payload, isLoading: false }
       case 'ERROR':

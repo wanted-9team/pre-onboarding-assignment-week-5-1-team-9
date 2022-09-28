@@ -25,6 +25,11 @@ export default App
 const Container = styled.div`
   margin: 0 auto;
   width: 600px;
-  border: 3px solid black;
-  padding: 10px;
+  padding: 30px;
+  background-color: #d0e8fd;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
 `

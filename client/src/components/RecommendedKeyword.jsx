@@ -1,45 +1,55 @@
 import React from 'react'
+import styled from 'styled-components'
 import Highlights from './Highlights'
 import NoResults from './NoResults'
-import styled, { keyframes } from 'styled-components'
+import Spinner from './Spinner'
+import { AiOutlineSearch } from 'react-icons/ai'
 
 function RecommendedKeyword({ data, query, isLoading, status }) {
   return (
-    <div>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        data.map((item, index) => (
-          <li key={index}>
-            <Highlights query={query} total={item.sickNm} />
-          </li>
-        ))
-      )}
-      {status === 'NoResults' && <NoResults />}
-    </div>
+    <RecommendedContainer>
+      <RecommendedHeader>추천 검색어</RecommendedHeader>
+      <RecommendedKeywordUL>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          data.map((item, index) => (
+            <RecommendedLI key={index}>
+              <AiOutlineSearch />
+              <Highlights query={query} total={item.sickNm} />
+            </RecommendedLI>
+          ))
+        )}
+        {(status === 'NoResults' || status === 'Reset') && <NoResults />}
+      </RecommendedKeywordUL>
+    </RecommendedContainer>
   )
 }
 
-const rotation = keyframes`
-    from{
-        transform: rotate(0deg);
-    }
-
-    to{
-        transform: rotate(360deg);
-    }
-
-`
-
-const Spinner = styled.div`
-  height: 30px;
-  width: 30px;
-  border: 1px solid #f8049c;
-  border-radius: 50%;
-  border-top: none;
-  border-right: none;
-  margin: 16px auto;
-  animation: ${rotation} 1s linear infinite;
-`
-
 export default React.memo(RecommendedKeyword)
+
+const RecommendedKeywordUL = styled.ul`
+  list-style: none;
+  & Spinner {
+    margin: 0 auto;
+  }
+`
+
+const RecommendedLI = styled.li`
+  list-style: none;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+`
+
+const RecommendedHeader = styled.div`
+  margin: 5px 0 0 5px;
+  font-weight: 300;
+  font-size: 12px;
+`
+
+const RecommendedContainer = styled.div`
+  width: 80%;
+  background-color: white;
+  border-radius: 10px;
+`
