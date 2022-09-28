@@ -8,16 +8,21 @@ export const useCache = query => {
     status: 'idle',
     data: [],
     error: null,
+    isLoading: false,
   }
 
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
+      case 'RESET':
+        return { ...initialState, status: 'Reset', data: [] }
+      case 'NORESULTS':
+        return { ...initialState, status: 'NoResults', data: [], isLoading: false }
       case 'RENDERING':
-        return { ...initialState, status: 'Rendering' }
+        return { ...initialState, status: 'Rendering', isLoading: true }
       case 'RENDERED':
-        return { ...initialState, status: 'Rendered', data: action.payload }
+        return { ...initialState, status: 'Rendered', data: action.payload, isLoading: false }
       case 'ERROR':
-        return { ...initialState, status: 'Error', error: action.payload }
+        return { ...initialState, status: 'Error', error: action.payload, isLoading: false }
       default:
         return state
     }
@@ -25,7 +30,10 @@ export const useCache = query => {
 
   useEffect(() => {
     let cancelReq = false
-    if (!query || !query.trim()) return
+    if (!query || !query.trim()) {
+      dispatch({ type: 'RESET' })
+      return
+    }
 
     const getData = async () => {
       dispatch({ type: 'RENDERING' })
@@ -36,10 +44,13 @@ export const useCache = query => {
         try {
           const res = await getSickDetail(query)
           const data = await res.data
-          if (data.length === 0 || cancelReq) return
+          console.info('calling api')
+          if (data.length === 0 || cancelReq) {
+            dispatch({ type: 'NORESULTS' })
+            return
+          }
           cacheApi.current[query] = data
           dispatch({ type: 'RENDERED', payload: data })
-          console.info('calling api')
         } catch (error) {
           if (cancelReq) return
           dispatch({ type: 'ERROR', payload: error.message })

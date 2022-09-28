@@ -5,22 +5,17 @@ import useDebounce from 'hooks/useDebounce'
 import Header from 'components/Header'
 import Searchbar from 'components/Searchbar'
 import RecommendedKeyword from 'components/RecommendedKeyword'
-import NoResults from 'components/NoResults'
 
 const App = () => {
   const [query, setQuery] = useState('')
   const debounceVal = useDebounce(query)
 
-  const { data, error } = useCache(debounceVal)
+  const { data, isLoading, status } = useCache(debounceVal)
   return (
     <Container>
       <Header />
       <Searchbar setQuery={setQuery} />
-      {debounceVal && data.length >= 1 ? (
-        <RecommendedKeyword data={data} query={debounceVal} />
-      ) : (
-        <NoResults />
-      )}
+      <RecommendedKeyword status={status} isLoading={isLoading} data={data} query={debounceVal} />
     </Container>
   )
 }
