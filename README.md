@@ -77,6 +77,17 @@ https://user-images.githubusercontent.com/85508157/192806655-a6c06ff7-3254-498e-
 
 ### ☑️ API 호출 최적화
 
+[x] API 호출별로 로컬 캐싱 구현 => useRef를 이용한 커스텀 훅 useCache를 통해 구현
+
+처음에 cacheApi란 useRef를 생성시킵니다. useRef 초기값으론 빈 객체를 넣어줍니다.
+
+useReducer와 useEffect를 이용해 상태를 업데이트하는 로직을 작성했습니다. 상태는 총 ‘RENDERING’, ‘REDNERED’, ‘RESET’, ‘NORESULTS’, ‘ERROR’로 나누었습니다. useEffect 로직 안에서 처음 if 문에서 만약 query 값이 falsy 값일 때 dispatch로 타입이 ‘RESET’인 액션을 실행시키고 이 때 빈 배열을 payload로 data에 넘겨줍니다. 이후 getData 함수를 실행하는데, 처음에 type이 ‘RENDERING’인 액션을 실행시키고 이 때도 역시 payload로 빈 배열을 넘겨줍니다. 이후 cacheApi의 current 프로퍼티에 해당 query 값이 key 값으로 존재한다면 api 호출을 실행시키지 않고 타입이 ‘RENDERED’란 액션을 실행시키고 원래 cacheApi.current에 존재하던 data를 payload로 넘겨줍니다. 해당 query 값이 key 값에 존재하지 않았다면 두 가지 상황에 처하게 됩니다. 하나는 api를 실행해서 데이터를 받아오고, 데이터의 길이가 0인 빈 배열일 때 type이 ‘NORESULTS’란 액션을 실행하고, 길이가 있는 배열이라면 cacheApi.current에 데이터를 저장하고, 타입이 ‘RENDERED’란 액션을 실행시킵니다.
+
+getData 함수는 useEffect 안에서 해당 query를 의존성 배열로 받아서, query 값이 변할 때마다 실행됩니다. 위에서 설명했듯이 해당 query가 cacheApi.current 값에 존재하면 api를 호출하지 않고 원래 존재하던 값을 넘겨주게 됩니다.
+<br>
+
+API 호출 횟수를 줄이는 전략 수립 => useDebounce 훅을 이용해 구현
+
 ### ☑️ 키보드만으로 추천 검색어들로 이동 가능하도록 구현
 
 일단 컴포넌트 상에서 index를 확인하기위해 useState로 currentIndex 스테이트 생성한 후,
