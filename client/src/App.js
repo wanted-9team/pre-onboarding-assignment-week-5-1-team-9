@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { useCache } from 'hooks/useCache'
 import useDebounce from 'hooks/useDebounce'
@@ -8,9 +8,14 @@ import RecommendedKeyword from 'components/RecommendedKeyword'
 
 const App = () => {
   const [query, setQuery] = useState('')
+  const [currentIndex, setCurrentIndex] = useState(-1)
 
-  const { debounceVal, setCurrentIndex, currentIndex } = useDebounce(query)
+  const debounceVal = useDebounce(query)
   const { data, isLoading, status } = useCache(debounceVal)
+
+  useEffect(() => {
+    setCurrentIndex(-1)
+  }, [query])
 
   const keyHandler = event => {
     if (query === '' || event.nativeEvent.isComposing) return
