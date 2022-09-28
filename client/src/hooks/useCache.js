@@ -36,8 +36,8 @@ export const useCache = query => {
         try {
           const res = await getSickDetail(query)
           const data = await res.data
+          if (data.length === 0 || cancelReq) return
           cacheApi.current[query] = data
-          if (cancelReq) return
           dispatch({ type: 'RENDERED', payload: data })
           console.info('calling api')
         } catch (error) {

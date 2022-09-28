@@ -11,15 +11,16 @@ const App = () => {
   const [query, setQuery] = useState('')
   const debounceVal = useDebounce(query)
 
-  const { data, status, error } = useCache(debounceVal)
-
-  // console.log(status)
-
+  const { data, error } = useCache(debounceVal)
   return (
     <Container>
       <Header />
       <Searchbar setQuery={setQuery} />
-      {query ? <RecommendedKeyword data={data} /> : <NoResults />}
+      {debounceVal && data.length >= 1 ? (
+        <RecommendedKeyword data={data} query={debounceVal} />
+      ) : (
+        <NoResults />
+      )}
     </Container>
   )
 }
