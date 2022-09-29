@@ -82,7 +82,7 @@ https://user-images.githubusercontent.com/85508157/192806655-a6c06ff7-3254-498e-
 
 ### ☑️ API 호출 최적화
 
-[x] API 호출별로 로컬 캐싱 구현 => useRef를 이용한 커스텀 훅 useCache를 통해 구현
+- [x] API 호출별로 로컬 캐싱 구현 => useRef를 이용한 커스텀 훅 useCache를 통해 구현
 
 [참고 파일\_hooks/useCache](https://github.com/wanted-9team/pre-onboarding-assignment-week-5-1-team-9/tree/master/client/src/hooks/useCache.js)
 
@@ -93,7 +93,7 @@ useReducer와 useEffect를 이용해 상태를 업데이트하는 로직을 작�
 getData 함수는 useEffect 안에서 해당 query를 의존성 배열로 받아서, query 값이 변할 때마다 실행됩니다. 위에서 설명했듯이 해당 query가 cacheApi.current 값에 존재하면 api를 호출하지 않고 원래 존재하던 값을 넘겨주게 됩니다.
 <br>
 
-[x] API 호출 횟수를 줄이는 전략 수립 => useDebounce 훅을 이용해 구현
+- [x] API 호출 횟수를 줄이는 전략 수립 => useDebounce 훅을 이용해 구현
 
 [참고 파일\_hooks/useDebounce](https://github.com/wanted-9team/pre-onboarding-assignment-week-5-1-team-9/tree/master/client/src/hooks/useDebounce.js)
 
